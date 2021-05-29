@@ -5,23 +5,7 @@ public class Driver {
 
     public static List<String> exercises = new ArrayList<String>();
     public static void main(String[] args){
-        Scanner s = new Scanner(System.in);
-
-        File file = new File("files/exercises.txt");
-
-        // read in existing exercises from file
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                exercises.add(line.toUpperCase());
-            }
-        }
-        catch (Exception e){
-            System.out.println(e);
-            System.exit(1);
-        }
-
-        
+        Scanner s = new Scanner(System.in);        
 
         while (true) {
 
