@@ -1,27 +1,15 @@
+package src;
+
 import java.io.*;
 import java.util.*;
 
 public class Driver {
 
-    public static List<String> exercises = new ArrayList<String>();
+    public static List<Exercise> exercises = new ArrayList<Exercise>();
     public static void main(String[] args){
         Scanner s = new Scanner(System.in);
-
-        File file = new File("files/exercises.txt");
-
-        // read in existing exercises from file
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                exercises.add(line.toUpperCase());
-            }
-        }
-        catch (Exception e){
-            System.out.println(e);
-            System.exit(1);
-        }
-
         
+        exercises = Exercise.initList();
 
         while (true) {
 
@@ -42,8 +30,14 @@ public class Driver {
             // Print existing exercises
             else if (opt.equals("print")){
                 System.out.print("Known exercises are: ");
-                for (String ex : exercises){
-                    System.out.print(ex + ", ");
+                for (int i = 0; i < exercises.size(); i++){
+                    if (i == exercises.size() - 1){
+                        System.out.print(exercises.get(i).getName());
+                    }
+                    else {
+                        System.out.print(exercises.get(i).getName() + ", ");
+                    }
+                   
                 }
                 System.out.println();
             }
@@ -51,17 +45,17 @@ public class Driver {
             // Add a new exercise
             else if (opt.equals("add")){
                 System.out.println("Please type an exercise to add: ");
-                String line = s.nextLine().toUpperCase();
+                String line = s.nextLine();
 
-                if (exercises.contains(line)){
+                if (exercises.contains(new Exercise(line))){
                     System.out.println("Exercise already exists.");
                 }
                 else {
-                    exercises.add(line);
+                    exercises.add(new Exercise(line));
 
                     // Adds to file
                     try (BufferedWriter output = new BufferedWriter(new FileWriter("files/exercises.txt", true))){
-                        output.write(line);
+                    	output.write("\n" + line);
                     }
                     catch (Exception e){
                         System.out.println(e);
