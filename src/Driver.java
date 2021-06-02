@@ -1,11 +1,16 @@
+
+
+
 import java.io.*;
 import java.util.*;
 
 public class Driver {
 
-    public static List<String> exercises = new ArrayList<String>();
+    public static List<Exercise> exercises = new ArrayList<Exercise>();
     public static void main(String[] args){
-        Scanner s = new Scanner(System.in);        
+        Scanner s = new Scanner(System.in);
+        
+        exercises = Exercise.initList();
 
         while (true) {
 
@@ -26,8 +31,14 @@ public class Driver {
             // Print existing exercises
             else if (opt.equals("print")){
                 System.out.print("Known exercises are: ");
-                for (String ex : exercises){
-                    System.out.print(ex + ", ");
+                for (int i = 0; i < exercises.size(); i++){
+                    if (i == exercises.size() - 1){
+                        System.out.print(exercises.get(i).getName());
+                    }
+                    else {
+                        System.out.print(exercises.get(i).getName() + ", ");
+                    }
+                   
                 }
                 System.out.println();
             }
@@ -37,11 +48,11 @@ public class Driver {
                 System.out.println("Please type an exercise to add: ");
                 String line = s.nextLine().toUpperCase();
 
-                if (exercises.contains(line)){
+                if (exercises.contains(new Exercise(line))){
                     System.out.println("Exercise already exists.");
                 }
                 else {
-                    exercises.add(line);
+                    exercises.add(new Exercise(line));
 
                     // Adds to file
                     try (BufferedWriter output = new BufferedWriter(new FileWriter("files/exercises.txt", true))){
