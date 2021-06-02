@@ -1,5 +1,4 @@
-
-
+package src;
 
 import java.io.*;
 import java.util.*;
@@ -46,7 +45,7 @@ public class Driver {
             // Add a new exercise
             else if (opt.equals("add")){
                 System.out.println("Please type an exercise to add: ");
-                String line = s.nextLine().toUpperCase();
+                String line = s.nextLine();
 
                 if (exercises.contains(new Exercise(line))){
                     System.out.println("Exercise already exists.");
@@ -56,7 +55,7 @@ public class Driver {
 
                     // Adds to file
                     try (BufferedWriter output = new BufferedWriter(new FileWriter("files/exercises.txt", true))){
-                        output.write(line);
+                    	output.write("\n" + line);
                     }
                     catch (Exception e){
                         System.out.println(e);
