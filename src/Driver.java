@@ -10,6 +10,8 @@ public class Driver {
         Scanner s = new Scanner(System.in);
         
         exercises = Exercise.initList();
+        
+        //Gui.launchGui();
 
         while (true) {
 
@@ -32,10 +34,10 @@ public class Driver {
                 System.out.print("Known exercises are: ");
                 for (int i = 0; i < exercises.size(); i++){
                     if (i == exercises.size() - 1){
-                        System.out.print(exercises.get(i).getName());
+                        System.out.print(exercises.get(i).getName().toUpperCase());
                     }
                     else {
-                        System.out.print(exercises.get(i).getName() + ", ");
+                        System.out.print(exercises.get(i).getName().toUpperCase() + ", ");
                     }
                    
                 }
@@ -45,9 +47,9 @@ public class Driver {
             // Add a new exercise
             else if (opt.equals("add")){
                 System.out.println("Please type an exercise to add: ");
-                String line = s.nextLine();
+                String line = s.nextLine().toLowerCase();
 
-                if (exercises.contains(new Exercise(line))){
+                if (Exercise.containsExercise(new Exercise(line))){
                     System.out.println("Exercise already exists.");
                 }
                 else {

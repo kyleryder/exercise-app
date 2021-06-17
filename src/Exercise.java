@@ -2,6 +2,11 @@ package src;
 
 import java.util.*;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+
 
 public class Exercise {
 
@@ -10,7 +15,7 @@ public class Exercise {
 
 
     public Exercise(String name){
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public String getName(){
@@ -41,5 +46,14 @@ public class Exercise {
         }
 
         return exercises;
+    }
+
+    public static boolean containsExercise(Exercise e) {
+        for (Exercise i : exercises){
+            if (i.getName().equals(e.getName())){
+                return true;
+            }
+        }
+        return false;
     }
 }
