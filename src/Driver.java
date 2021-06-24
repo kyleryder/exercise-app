@@ -1,15 +1,22 @@
-package src;
+
 
 import java.io.*;
 import java.util.*;
+import java.sql.*;
 
 public class Driver {
 
     public static List<Exercise> exercises = new ArrayList<Exercise>();
+
     public static void main(String[] args){
         Scanner s = new Scanner(System.in);
+        System.out.print("Username: ");
+        String user = s.nextLine();
+        System.out.print("Password: ");
+        String pass = s.nextLine();
         
-        exercises = Exercise.initList();
+        exercises = Exercise.startUp(user, pass);
+        System.out.println();
         
         //Gui.launchGui();
 
@@ -26,7 +33,7 @@ public class Driver {
 
             // Help
             else if (opt.equals("help")){
-                System.out.println("Commands:\tprint\tadd\texit");
+                System.out.println("Commands:\tprint\tadd\tdescribe\texit");
             }
 
             // Print existing exercises
@@ -48,22 +55,29 @@ public class Driver {
             else if (opt.equals("add")){
                 System.out.println("Please type an exercise to add: ");
                 String line = s.nextLine().toLowerCase();
+                System.out.println("Please enter a description: ");
+                String desc = s.nextLine();
+                Exercise e = new Exercise(line, desc);
 
-                if (Exercise.containsExercise(new Exercise(line))){
+                if (Exercise.containsExercise(e)){
                     System.out.println("Exercise already exists.");
                 }
                 else {
-                    exercises.add(new Exercise(line));
-
-                    // Adds to file
-                    try (BufferedWriter output = new BufferedWriter(new FileWriter("files/exercises.txt", true))){
-                    	output.write("\n" + line);
-                    }
-                    catch (Exception e){
-                        System.out.println(e);
-                        System.exit(1);
-                    }
+                    exercises.add(e);
+                    Exercise.addQuery(e);
                 }
+            }
+            else if (opt.equals("describe")) {
+            	System.out.println("Please type an exercise name: ");
+            	String line = s.nextLine().toLowerCase();
+            	
+            	Exercise e = Exercise.getExercise(line);
+            	if (e == null) {
+            		System.out.println("Exercise not found. Please type an existing exercise");
+            	}
+            	else {
+            		System.out.println(e.getDescription());
+            	}
             }
             else {
                 System.out.println("Invalid command. Please type 'help' for options.");
