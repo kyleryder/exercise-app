@@ -109,6 +109,10 @@ public class Exercise {
     // Remove Query.
     public static boolean removeQuery(Exercise e) {
     	String name = e.getName();
+    	if (name.equals(defaults[0]) || name.equals(defaults[1]) || name.equals(defaults[2])) {
+    		System.out.println("Cannot delete default exercise.");
+    		return false;
+    	}
     	try {
     		preparedStatement = connect.prepareStatement("DELETE FROM exercises WHERE name = ?");
     		preparedStatement.setString(1, name);
@@ -168,7 +172,6 @@ public class Exercise {
 			preparedStatement.setString(3, defaults[2]);
 			preparedStatement.execute();
 			
-			System.out.println("Successfully reset application.");
 			
 			// Clear list, then add from database.
 			exercises.clear();
@@ -185,6 +188,7 @@ public class Exercise {
                 
             }
             
+            System.out.println("Successfully reset application.");
             return true;
 			
 			
