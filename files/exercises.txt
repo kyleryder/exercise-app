@@ -1,7 +1,0 @@
-bench press
-squat
-deadlift
-overhead press
-hip thrusts
-side raises
-romanian deadlift
