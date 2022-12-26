@@ -10,6 +10,7 @@ def main():
         instring += f"{i+1}) {options[i]}\n"
     op = input("Select number for actions\n" + instring)
 
+    # list exercises, track progress
     if op == "1":
         # dont know how to do this pythonically
         daystring = ""
@@ -20,7 +21,7 @@ def main():
 
         print(list_day_exercise(choice))
 
-
+    # change exercises
     elif op == "2":
         print("Something")
         exit()
@@ -36,6 +37,8 @@ def list_day_exercise(choice):
     numpick = int(choice) - 1
 
     # need data persistence for the exercises
+
+    #nosql db, key-value stores, something like that
 
     return output
 
